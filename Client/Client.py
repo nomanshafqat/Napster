@@ -101,14 +101,14 @@ def search(q):
     HOST, PORT = get_server_address_port()
 
     sock = send_data(data, HOST, PORT)
-    clientinfo = receive_data(sock).decode('utf-8')
-    clientinfo=clientinfo.split(",")
-    print(clientinfo)
-    for i in range(0,len(clientinfo),2):
-
-        print(clientinfo[i][3:-1],clientinfo[i+1][2:-2])
-
-
+    SearchResults = receive_data(sock).decode('utf-8')
+    SearchResults = SearchResults.split(",")
+    print(SearchResults)
+    if len(SearchResults)>1:
+        for i in range(0, len(SearchResults), 2):
+            print(SearchResults[i][3:-1], SearchResults[i + 1][2:-2])
+    else:
+        print("No Results Found for '"+q+"'")
 
     return
 
@@ -138,8 +138,7 @@ if __name__ == "__main__":
     search [string]
 get sdfsfsfdsf
 seed miley_cyrus_wrecking_ball_My2FRPA3Gf8_320kbps.mp3 /Users/nomanshafqat/Downloads
-search miley_cyrus_wrecking_ball_My2FRPA3Gf8_320kbps
-    '''
+search miley    '''
     while (True):
         try:
 
@@ -152,9 +151,11 @@ search miley_cyrus_wrecking_ball_My2FRPA3Gf8_320kbps
                 getfile(arg[1])
             if arg[0] == "search":
                 search(arg[1])
+            if arg[0]=="-h":
+                print('''seed  [filename] [path]
+                            get [file_id]
+                            search [string]''')
         except:
-            print("Bad Param")
-            print('''seed  [filename] [path]
-            get [file_id]
-            search [string]''')
+            print("Bad Param -h for help")
+
             continue

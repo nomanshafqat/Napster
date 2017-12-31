@@ -56,7 +56,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
             print("search request", self.client_address)
             q = jsondata["q"]
 
-            searchresults = [("key","filename")]
+            searchresults = []
 
             if len(dic.keys()) > 0:
                 for key in dic.keys():
