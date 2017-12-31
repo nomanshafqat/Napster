@@ -1,13 +1,11 @@
 import json
 import os
-import shutil
-import socket
 import socketserver
 import threading
-import time
-from threading import Thread
 from Utils.Send_Data import send_data,send_data_sock
 from Utils.Receive_Data import receive_data
+import string
+import random
 
 dic = {}
 ''' "id" : ["filename","ip","port"]'''
@@ -15,9 +13,8 @@ dic = {}
 
 
 def generate_unique_file_id():
-
-    # TODO randomize this
-    return "sdfsfsfdsf"
+    randomnum = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(0,64)])
+    return randomnum
 
 
 
