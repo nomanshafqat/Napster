@@ -26,22 +26,19 @@ class ThreadedTCPClientRequestHandler(socketserver.BaseRequestHandler):
         jsondata = json.loads(str(self.data.decode('utf-8')))
 
         if jsondata["command"]=="get":
-            #todo
             print("client receive the file request")
-
             fileid=jsondata["fileid"]
             global dic
-
             print(dic)
             path=os.path.join(dic[fileid][1],dic[fileid][0])
-
             f = open(path, 'rb')
             filecontents=f.read()
-
-
-            print(path)
             send_binary_file(filecontents,"sds",self.request)
             print("File Sent")
+
+        if jsondata["command"]=="ping":
+            #TODO ACK to ping
+            return
 
 
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
